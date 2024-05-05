@@ -39,6 +39,7 @@ class TokenType(IntEnum):
 
     ROP = auto()
     ASSIGN = auto()
+    COMMA = auto()
     SEMICOLON = auto()
     UNKNOWN = auto()
     EOF = auto()
@@ -98,6 +99,7 @@ class Scanner():
     regex[TokenType.ROP] = r"==|<=|>=|<|>"
     regex[TokenType.ASSIGN] = r"[=]"
     regex[TokenType.SEMICOLON] = r"[;]"
+    regex[TokenType.COMMA] = r"[,]"
     regex[TokenType.UNKNOWN] = r"."
 
     OPEN_CMT = r"/[*]"
@@ -108,18 +110,13 @@ class Scanner():
     buffer = ""
     lexemeBegin = 0
     file_path = ""
-    f = open("inp")
-    
+    f = None
 
     def __init__(self, path = None) -> None:
         if path is not None:
             self.scan(path)
 
     def scan(self, path: str) -> None:
-
-        if self.file_path is not None:
-            self.f.close()
-
         self.file_path = path
         self.f = open(self.file_path)
         self.is_done = False
@@ -195,7 +192,6 @@ class Scanner():
                 self.lexemeBegin = r
                 self.ignore_spc()
                 return Token(t, lexeme, l, self.row)
-
 
     def ignore_spc(self):
         """
