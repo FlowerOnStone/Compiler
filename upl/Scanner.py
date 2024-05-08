@@ -127,6 +127,8 @@ class Scanner():
         """
         Update the current buffer to the next line of the source.
         Move the lexemeBegin ptr to the first character that is neither spc nor \t.
+
+        Update: lexemeBegin = 0, ptr, buffer, buffer_len
         """
         self.buffer = self.f.readline()
 
@@ -171,7 +173,7 @@ class Scanner():
                 res = re.search(self.CLOSE_CMT, self.buffer[self.lexemeBegin:])
                 if res is not None:
                     r = res.span()[1]
-                    self.lexemeBegin = r
+                    self.lexemeBegin += r
                     self.ignore_spc()
                     current_buf = self.buffer[self.lexemeBegin:]
                     break
@@ -202,8 +204,10 @@ class Scanner():
             ptr = ptr + 1
         self.lexemeBegin = ptr
 
+
         if self.reach_end_of_line():
             self.next_line()
+
             if not self.is_done:
                 self.ignore_spc()
 
@@ -225,6 +229,6 @@ if __name__ == "__main__":
             break
         if res.token_t == TokenType.UNKNOWN:
             row, col = (res.row, res.col)
-            print(f"Unknown token at row: {row}, col: {col}: \"{scanner.get_buf()[col:]}\"")
+            print(f"Unknown token at row: {row}, col: {col}: \"{scanner.get_buf()[col:]}\"", "Lexeme return is ", res.lexeme)
             exit()
         print(res)
