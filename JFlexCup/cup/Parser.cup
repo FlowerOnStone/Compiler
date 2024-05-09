@@ -1,71 +1,85 @@
 package upl;
 
 import java_cup.runtime.*;
-import Example.Parser.Expr;
+// import Example.Parser.Expr;
 import java.io.*;
-parser code {:
-    public static abstract class Expr {
-	public abstract int eval();
-	public abstract Location right();
-	public abstract Location left();
-	static class BinExpr extends Expr {
-	    Expr l,r;
-	    int s;
-	    BinExpr(Expr l, int sym,Expr r){
-		this.l=l;
-		this.r=r;
-		this.s=sym;
-	    }
-	    public int eval(){
-		if (s==sym.PLUS) return l.eval() + r.eval();
-		else return l.eval() * r.eval();
-	    }
-	    public Location left() { return l.left(); }
-	    public Location right() {return r.right(); }
-	}
-	static class Const extends Expr {
-	    Location l,r;
-	    Integer value;
-	    Const(Location l,Integer i,Location r){
-		this.l=l;
-		this.r=r;
-		this.value = i;
-	    }
-	    public int eval(){ return value;  }
-	    public Location left() { return l; }
-	    public Location right() {return r; }
-	}
-    }
-    public static void main(String args[]) throws Exception {
-	ComplexSymbolFactory sf = new ComplexSymbolFactory();
-	if (args.length==0) new Parser(new Scanner(new InputStreamReader(System.in),sf),sf).parse();
-	else new Parser(new Scanner(new InputStreamReader(new java.io.FileInputStream(args[0])),sf),sf).parse();
-    }
 
-    public void syntax_error(Symbol sym){ 
-	// Mute legacy Error Printing
-    }
+/* Parser code to change the way the parser reports errors (include
+   line and column number of the error). */
+parser code {:
+  // Connect this parser to a scanner!
+  
+  public boolean syntaxErrors;
+  
+  
+  public void syntax_error(Symbol current_token){ 
+      report_error(
+          "Syntax error at line " + (current_token.left+1) + ", column "
+          + current_token.right, null
+      );
+  }
 :}
 
-terminal SEMI, PLUS, TIMES, LPAREN, RPAREN;
-terminal Integer NUMBER;
+/* Terminals (tokens returned by the scanner). */
+terminal BEGIN, END;  // begin, end statement
+terminal LEFT_BRACKET, RIGHT_BRACKET, LEFT_PARENTHESIS, RIGHT_PARENTHESIS, SEMICOLON, COMMA;
+terminal DO, WHILE, IF, THEN, ELSE;
 
-non terminal expr_list, expr_part;
-non terminal Expr expr;
+terminal INT_T, BOOL_T;
+terminal CONST_INT, CONST_BOOL;
+terminal IDENTIFIER;
 
-precedence left PLUS;
-precedence left TIMES;
+terminal ADD, MUL, ASSIGN;
+terminal G_THAN, G_EQ, EQEQ;           // 3 ROP
 
-expr_list ::= expr_list expr_part | expr_part;
-expr_part ::= expr:e {: System.out.println(" = "+e.eval()+";"); :} SEMI
-            | error:e SEMI:s {: parser.report_error("Syntax error in input from "+exleft +" to "+sxright,e); :}
-            ;
-expr      ::= NUMBER:n
-              {: RESULT= new Expr.Const(nxleft,n,nxright); :}
-            | expr:l PLUS expr:r
-	    {: RESULT=new Expr.BinExpr(l,sym.PLUS,r); :}
-	    | expr:l TIMES expr:r
-	    {: RESULT=new Expr.BinExpr(l,sym.TIMES,r); :}
-	    | LPAREN expr:e RPAREN
-	      {: RESULT=e; :}
-	    ;
+terminal PRINT;
+
+terminal Integer NUMBER; // TODO: Delete
+
+/* Non terminals */
+non terminal stmtList, stmt;
+non terminal Expr, M_Expr, Tmp, METail;
+non terminal ifTail;
+non terminal Assignment, Declaration, Rop;
+non terminal Type, L, L1, L2;         // Declaration
+non terminal Y, Term, Factor, T2;
+
+
+precedence right ADD;            // id +(id + (id))
+precedence right MUL;            // id * (id * (id))
+precedence nonassoc ASSIGN;      // id=id=id => ERROR !
+precedence nonassoc G_THAN, G_EQ, EQEQ;
+
+
+/* The grammar rules */
+
+stmtList    ::=   stmt SEMI stmtList 
+                | ;
+
+stmt        ::=   IF Expr THEN LEFT_BRACKET stmtList RIGHT_BRACKET ifTail
+                | DO LEFT_BRACKET stmtList RIGHT_BRACKET WHILE LEFT_PARENTHESIS Expr RIGHT_PARENTHESIS
+                | Assignment
+                | Declaration
+                | PRINT LEFT_PARENTHESIS Expr RIGHT_PARENTHESIS;
+
+ifTail      ::=   ELSE LEFT_BRACKET stmtList RIGHT_BRACKET
+                | ;
+
+Declaration ::=   Type L;
+Type        ::=   INT_T | BOOL_T;
+L           ::=   L1 L2;
+L1          ::=   IDENTIFIER | Assignment;
+L2          ::=   COMMA L 
+                | ;
+
+Assignment  ::= IDENTIFIER ASSIGN Expr;
+
+Expr        ::= M_Expr Tmp;
+Tmp         ::= Rop M_Expr | ;
+M_Expr      ::= Term METail;
+METail      ::= ADD M_Expr | ;
+Y           ::= IDENTIFIER | CONST_INT;
+
+Term := Factor T2;
+Factor := Y | LEFT_PARENTHESIS M_Expr RIGHT_PARENTHESIS;
+T2      := MUL Term | ;
