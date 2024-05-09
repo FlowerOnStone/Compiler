@@ -2,57 +2,8 @@ from enum import IntEnum, auto
 from Scanner import *
 from ast_node import *
 
-# Sau này sẽ có class Compiler để manage tương tác giữa Scanner và Parser
-# Thay vì Scanner là 1 attribute của Parser -> passing arguments overhead
-
-
-"""
-Tại sao cần: Vẫn cần ID để phân biệt các token với nhau.
-IntEnum.
-"""
-
-
-class SymbolType(IntEnum):
-    # TODO: Thay đổi, vì văn phạm mới có thể có S', F' gì đó
-    S = auto()
-    STMT_LIST = auto()
-    EXPR = auto()
-    M_EXPR = auto()
-    ...
-
-
-class Symbol:
-    """
-    Trả về trong get_production(current_symbol, next_sym):
-    [Symbol, Symbol, ...]
-    nó khác với [SymbolType, SymbolType, ..] ở chỗ có giá trị cụ thể,
-    StartToken đi kèm row, col để báo lỗi khi cần...
-    """
-
-    _type = 0  # SymbolType
-    start_token = None
-    # Giả sử symbol S,
-    # dùng dẫn xuất S -> begin stmtList end  thì start_token = TokenType.BEGIN
-
-    val = 0  # NOTE: ignore, pha sau mới dùng
-
-    def __init__(self, name, productions=[]):
-        self.__name__ = name
-
-
-class Grammar:
-    # người dùng ko nhìn thấy
-    # PRODUCTION = dict()
-    # FIRST = dict()
-    # FOLLOW = dict() i.e. FOLLOW[SymbolType]
-    # parse_table = None
-
-    def get_production(current_symbol, next_sym) -> [Symbol]:
-        pass
-
 
 class Parser:
-    # Output là [[Symbol],...]
 
     scanner = Scanner()
     current_token = None
@@ -64,13 +15,15 @@ class Parser:
         return self.current_token
 
     def match(self):
-        while True:
-            self.current_token = self.scanner.nextToken()
-            if self.current_token.token_t != TokenType.UNKNOWN:
-                break
-        print(self.current_token)
+        self.current_token = self.scanner.nextToken()
 
-    def parse(self, path) -> list:
+    def typo_error(self, expect: str) -> None:
+        print(
+            f"row {self.token().row}, col {self.token().col}: expect {expect} but found {self.token().lexeme}"
+        )
+        exit(0)
+
+    def parse(self, path):
         """
         Trả về List Productions có dạng:
         [
@@ -88,31 +41,31 @@ class Parser:
         self.scanner.scan(path)
         self.match()
         result = self.parser_start()
-        result.dump(0)
+        return result
 
-    def parser_start(self) -> bool:
+    def parser_start(self):
         """
         S -> begin <stmtList> end
         """
         result = Program(self.token())
         if self.token().token_t != TokenType.BEGIN:
-            return False
+            self.typo_error("begin")
         self.match()
         result.body = self.parser_statement_list()
         if result.body == False:
             return False
         if self.token().token_t != TokenType.END:
-            return False
+            self.typo_error("end")
         self.match()
         if self.token().token_t != TokenType.EOF:
-            return False
+            self.typo_error("<eof>")
         return result
 
     def parser_statement_list(self):
         """
         <stmtList> ->  <stmt> <stmtList> | epsilon
         """
-        result= [self.parser_statement()]
+        result = [self.parser_statement()]
         if result[0] == False:
             return False
         if (
@@ -136,15 +89,17 @@ class Parser:
             or self.token().token_t == TokenType.BOOL_T
         ):
             return self.parser_declaration()
-        if self.token().token_t == TokenType.IF:
+        elif self.token().token_t == TokenType.IF:
             return self.parser_if_condition()
-        if self.token().token_t == TokenType.IDENTIFIER:
+        elif self.token().token_t == TokenType.IDENTIFIER:
             return self.parser_assignment()
-        if self.token().token_t == TokenType.PRINT:
+        elif self.token().token_t == TokenType.PRINT:
             return self.parse_print_statement()
-        if self.token().token_t == TokenType.DO:
+        elif self.token().token_t == TokenType.DO:
             return self.parse_do_while_statement()
-        return False
+        else:
+            self.typo_error("int or bool or if or print or do or id")
+            return False
 
     def parser_declaration(self) -> bool:
         """
@@ -152,16 +107,13 @@ class Parser:
         """
         result = DeclarationStatement(self.token())
         declaration_type = self.parser_type()
-        if declaration_type == False:
-            return False
         result.type = declaration_type
         variables = self.parser_l()
         if variables[0] == False:
             return False
         result.variables = variables
-        print(result)
         if self.token().token_t != TokenType.SEMICOLON:
-            return False
+            self.typo_error(";")
         self.match()
         return result
 
@@ -171,22 +123,18 @@ class Parser:
         """
         result = IfStatement(self.token())
         if self.token().token_t != TokenType.IF:
-            return False
+            self.typo_error("if")
         self.match()
-        result.condition= self.parser_expression()
-        if result.condition == False:
-            return False
+        result.condition = self.parser_expression()
         if self.token().token_t != TokenType.THEN:
-            return False
+            self.typo_error("then")
         self.match()
         if self.token().token_t != TokenType.LEFT_PARENTHESIS:
-            return False
+            self.typo_error("{")
         self.match()
         result.body = self.parser_statement_list()
-        if result.body == False:
-            return False
         if self.token().token_t != TokenType.RIGHT_PARENTHESIS:
-            return False
+            self.typo_error("}")
         self.match()
         result.else_body = self.parser_if_tail()
         return result
@@ -199,13 +147,11 @@ class Parser:
             return None
         self.match()
         if self.token().token_t != TokenType.LEFT_PARENTHESIS:
-            return False
+            self.typo_error("{")
         self.match()
         result = self.parser_statement_list()
-        if result == False:
-            return False
         if self.token().token_t != TokenType.RIGHT_PARENTHESIS:
-            return False
+            self.typo_error("}")
         self.match()
         return result
 
@@ -219,15 +165,12 @@ class Parser:
         result.variable = Variable(self.token())
         self.match()
         if self.token().token_t != TokenType.ASSIGN:
-            return False
+            self.typo_error("=")
         self.match()
         result.value = self.parser_expression()
-        if result.value == False:
-            return False
         if self.token().token_t != TokenType.SEMICOLON:
-            return False
+            self.typo_error(";")
         self.match()
-        print(result)
         return result
 
     def parse_print_statement(self) -> bool:
@@ -236,21 +179,20 @@ class Parser:
         """
         result = PrintStatement(self.token())
         if self.token().token_t != TokenType.PRINT:
-            return False
+            self.typo_error("print")
         self.match()
         if self.token().token_t != TokenType.LEFT_BRACKET:
-            return False
+            self.typo_error("(")
         self.match()
         result.body = self.parser_expression()
         if result.body == False:
             return False
         if self.token().token_t != TokenType.RIGHT_BRACKET:
-            return False
+            self.typo_error(")")
         self.match()
         if self.token().token_t != TokenType.SEMICOLON:
-            return False
+            self.typo_error(";")
         self.match()
-        print(result)
         return result
 
     def parse_do_while_statement(self) -> bool:
@@ -259,31 +201,27 @@ class Parser:
         """
         result = DoWhileStatement(self.token())
         if self.token().token_t != TokenType.DO:
-            return False
+            self.typo_error("do")
         self.match()
         if self.token().token_t != TokenType.LEFT_PARENTHESIS:
-            return False
+            self.typo_error("{")
         self.match()
         result.body = self.parser_statement_list()
-        if result.body == False:
-            return False
         if self.token().token_t != TokenType.RIGHT_PARENTHESIS:
-            return False
+            self.typo_error("}")
         self.match()
         if self.token().token_t != TokenType.WHILE:
-            return False
+            self.typo_error("while")
         self.match()
         if self.token().token_t != TokenType.LEFT_BRACKET:
-            return False
+            self.typo_error("(")
         self.match()
         result.condition = self.parser_expression()
-        if result.condition == False:
-            return False
         if self.token().token_t != TokenType.RIGHT_BRACKET:
-            return False
+            self.typo_error(")")
         self.match()
         if self.token().token_t != TokenType.SEMICOLON:
-            return False
+            self.typo_error(";")
         self.match()
         return result
 
@@ -295,9 +233,8 @@ class Parser:
             self.token().token_t != TokenType.INT_T
             and self.token().token_t != TokenType.BOOL_T
         ):
-            return False
+            self.typo_error("int or bool")
         result = Type(self.token())
-        print(result)
         self.match()
         return result
 
@@ -305,7 +242,7 @@ class Parser:
         """
         <L>             -> <L1><L2>
         """
-        result =  [self.parser_l1()]
+        result = [self.parser_l1()]
         result.extend(self.parser_l2())
         return result
 
@@ -314,7 +251,7 @@ class Parser:
         <L1>            -> <Id> <Declaration_Assignment>
         """
         if self.token().token_t != TokenType.IDENTIFIER:
-            return False
+            self.typo_error("identifier")
         variable = Variable(self.token())
         result = Declaration(self.token())
         result.variable = variable
@@ -323,19 +260,18 @@ class Parser:
             self.token().token_t == TokenType.COMMA
             or self.token().token_t == TokenType.SEMICOLON
         ):
-            print(result)
             return result
         if self.token().token_t == TokenType.ASSIGN:
             result.value = self.parser_declaration_assignment()
-            print(result)
             return result
         return False
+
     def parser_l2(self):
         """
         <L2>		-> , <L> | epsilon
         """
         if self.token().token_t == TokenType.SEMICOLON:
-            return [] 
+            return []
         if self.token().token_t != TokenType.COMMA:
             return False
         self.match()
@@ -363,15 +299,12 @@ class Parser:
         """
         result = CompareExpression(self.token())
         left = self.parser_m_expression()
-        if left == False:
-            return False
         op, right = self.parser_tmp()
         if op == None:
             return left
         result.left = left
         result.operation = op
         result.right = right
-        print(result)
         return result
 
     def parser_tmp(self):
@@ -381,7 +314,6 @@ class Parser:
         if self.token().token_t != TokenType.ROP:
             return None, None
         op = CompareOperation(self.token())
-        print(op)
         self.match()
         right = self.parser_m_expression()
         return op, right
@@ -392,15 +324,12 @@ class Parser:
         """
         result = Expression(self.token())
         left = self.parser_term()
-        if left == False:
-            return False
         op, right = self.parser_metail()
         if op == None:
             return left
         result.left = left
         result.operation = op
         result.right = right
-        print(result)
         return result
 
     def parser_metail(self) -> bool:
@@ -410,7 +339,6 @@ class Parser:
         if self.token().token_t != TokenType.ADD:
             return None, None
         op = Operation(self.token())
-        print(op)
         self.match()
         right = self.parser_m_expression()
         return op, right
@@ -421,15 +349,12 @@ class Parser:
         """
         result = Expression(self.token())
         left = self.parser_factor()
-        if left == False:
-            return False
         result.left = left
         op, right = self.parser_t2()
         if op == None:
             return left
         result.operation = op
         result.right = right
-        print(result)
         return result
 
     def parser_t2(self):
@@ -447,13 +372,13 @@ class Parser:
         """
         <Factor>    -> <Y> | (<M-Expr>)
         """
+        if self.token().token_t != TokenType.LEFT_BRACKET and self.token().token_t != TokenType.IDENTIFIER and self.token().token_t != TokenType.CONST_INT and self.token().token_t != TokenType.CONST_BOOL:
+            self.typo_error("( or id or const int or const bool")
         if self.token().token_t == TokenType.LEFT_BRACKET:
             self.match()
             result = self.parser_m_expression()
-            if result == False:
-                return False
             if self.token().token_t != TokenType.RIGHT_BRACKET:
-                return False
+                self.typo_error(")")
             self.match()
             return result
         return self.parser_y()
@@ -464,7 +389,6 @@ class Parser:
         """
         if self.token().token_t == TokenType.IDENTIFIER:
             result = Variable(self.token())
-            print(result)
             self.match()
             return result
         if (
@@ -472,12 +396,11 @@ class Parser:
             or self.token().token_t == TokenType.CONST_BOOL
         ):
             result = Constant(self.token())
-            print(result)
             self.match()
             return result
-        return False
 
 
 if __name__ == "__main__":
     parser = Parser()
-    parser.parse("test.upl")
+    ast = parser.parse("test.upl")
+    # ast.dump(0, file = open('ast.txt', "w"))

@@ -14,11 +14,11 @@ class AST:
     end_col_offset: int
     type_comment: str
 
-    def dump(self, level, en=""):
+    def dump(self, level, file, en=""):
         pass
 
-    def indent(self, level):
-        print("    " * level, end="")
+    def indent(self, level, file):
+        print("    " * level, end="", file=file)
 
 
 class Statement(AST): ...
@@ -34,14 +34,14 @@ class Program(AST):
             + "])"
         )
 
-    def dump(self, level, en=""):
-        print("Program(body=[")
+    def dump(self, level, file, en=""):
+        print("Program(body=[", file=file)
         for index in range(len(self.body)):
             en = ","
             if index + 1 == len(self.body):
                 en = ""
-            self.body[index].dump(level + 1, en)
-        print("])")
+            self.body[index].dump(level + 1, file, en)
+        print("])", file=file)
 
 
 class Operation(AST):
@@ -79,16 +79,16 @@ class Variable(AST):
     type = None
     value = None
 
-    def dump(self, level, en=""):
-        print("Variable[")
-        self.indent(level)
-        print(f"name={self.name},")
-        self.indent(level)
-        print(f"type={self.type},")
-        self.indent(level)
-        print(f"value={self.value}")
-        self.indent(level - 1)
-        print("]", en, sep="")
+    def dump(self, level, file, en=""):
+        print("Variable[", file=file)
+        self.indent(level, file)
+        print(f"name={self.name},", file=file)
+        self.indent(level, file)
+        print(f"type={self.type},", file=file)
+        self.indent(level, file)
+        print(f"value={self.value}", file=file)
+        self.indent(level - 1, file)
+        print("]", en, sep="", file=file)
 
 
 class Constant(AST):
@@ -107,14 +107,14 @@ class Constant(AST):
     def __str__(self) -> str:
         return f"Constant[type={self.type},value={self.value}]"
 
-    def dump(self, level, en=""):
-        print("Constant[")
-        self.indent(level)
-        print(f"type={self.type},")
-        self.indent(level)
-        print(f"value={self.value}")
-        self.indent(level - 1)
-        print("]", en, sep="")
+    def dump(self, level, file, en=""):
+        print("Constant[", file=file)
+        self.indent(level, file)
+        print(f"type={self.type},", file=file)
+        self.indent(level, file)
+        print(f"value={self.value}", file=file)
+        self.indent(level - 1, file)
+        print("]", en, sep="", file=file)
 
     type: str
     value = None
@@ -124,18 +124,18 @@ class Expression(AST):
     def __str__(self) -> str:
         return f"Expression[left={self.left},operation={self.operation},right={self.right}]"
 
-    def dump(self, level, en=""):
-        print("Expression[")
-        self.indent(level)
-        print(f"left=", end="")
-        self.left.dump(level + 1, en=",")
-        self.indent(level)
-        print(f"operation={self.operation}")
-        self.indent(level)
-        print(f"right=", end="")
-        self.right.dump(level + 1, en="")
-        self.indent(level - 1)
-        print("]", en, sep="")
+    def dump(self, level, file, en=""):
+        print("Expression[", file=file)
+        self.indent(level, file)
+        print(f"left=", end="", file=file)
+        self.left.dump(level + 1, file, en=",")
+        self.indent(level, file)
+        print(f"operation={self.operation}", file=file)
+        self.indent(level, file)
+        print(f"right=", end="", file=file)
+        self.right.dump(level + 1, file, en="")
+        self.indent(level - 1, file)
+        print("]", en, sep="", file=file)
 
     left = None
     operation = None
@@ -150,18 +150,18 @@ class CompareExpression(AST):
     operation = None
     right = None
 
-    def dump(self, level, en=""):
-        print("CompareExpression[")
-        self.indent(level)
-        print(f"left=", end="")
-        self.left.dump(level + 1, en=",")
-        self.indent(level)
-        print(f"operation={self.operation}")
-        self.indent(level)
-        print(f"right=", end="")
-        self.right.dump(level + 1, en="")
-        self.indent(level - 1)
-        print("]", en, sep="")
+    def dump(self, level, file, en=""):
+        print("CompareExpression[", file=file)
+        self.indent(level, file)
+        print(f"left=", end="", file=file)
+        self.left.dump(level + 1, file, en=",")
+        self.indent(level, file)
+        print(f"operation={self.operation}", file=file)
+        self.indent(level, file)
+        print(f"right=", end="", file=file)
+        self.right.dump(level + 1, file, en="")
+        self.indent(level - 1, file)
+        print("]", en, sep="", file=file)
 
 
 class IfStatement(Statement):
@@ -186,41 +186,41 @@ class IfStatement(Statement):
             )
         return result
 
-    def dump(self, level, en=""):
-        self.indent(level)
-        print("IfStatement[")
-        self.indent(level + 1)
-        print(f"condition=", end="")
-        self.condition.dump(level + 2, en=",")
-        self.indent(level + 1)
-        print(f"body=[")
+    def dump(self, level, file, en=""):
+        self.indent(level, file)
+        print("IfStatement[", file=file)
+        self.indent(level + 1, file)
+        print(f"condition=", end="", file=file)
+        self.condition.dump(level + 2, file, en=",")
+        self.indent(level + 1, file)
+        print(f"body=[", file=file)
         if self.else_body == None:
             for index in range(len(self.body)):
                 en = ","
                 if index + 1 == len(self.body):
                     en = ""
-                self.body[index].dump(level + 2, en)
-            self.indent(level + 1)
-            print("]")
+                self.body[index].dump(level + 2, file, en)
+            self.indent(level + 1, file)
+            print("]", file=file)
         else:
             for index in range(len(self.body)):
                 en = ","
                 if index + 1 == len(self.body):
                     en = ""
-                self.body[index].dump(level + 2, en)
-            self.indent(level + 1)
-            print("],")
-            self.indent(level + 1)
-            print(f"else_body=[")
+                self.body[index].dump(level + 2, file, en)
+            self.indent(level + 1, file)
+            print("],", file=file)
+            self.indent(level + 1, file)
+            print(f"else_body=[", file=file)
             for index in range(len(self.else_body)):
                 en = ","
                 if index + 1 == len(self.else_body):
                     en = ""
-                self.else_body[index].dump(level + 2, en)
-            self.indent(level + 1)
-            print("]")
-        self.indent(level)
-        print("]", en, sep="")
+                self.else_body[index].dump(level + 2, file, en)
+            self.indent(level + 1, file)
+            print("]", file=file)
+        self.indent(level, file)
+        print("]", en, sep="", file=file)
 
 
 class DoWhileStatement(Statement):
@@ -234,23 +234,23 @@ class DoWhileStatement(Statement):
             + "]]"
         )
 
-    def dump(self, level, en=""):
-        self.indent(level)
-        print("DoWhileStatement[")
-        self.indent(level+1)
-        print(f"condition=", end="")
-        self.condition.dump(level + 2, en=",")
-        self.indent(level + 1)
-        print(f"body=[")
+    def dump(self, level, file, en=""):
+        self.indent(level, file)
+        print("DoWhileStatement[", file=file)
+        self.indent(level + 1, file)
+        print(f"condition=", end="", file=file)
+        self.condition.dump(level + 2, file, en=",")
+        self.indent(level + 1, file)
+        print(f"body=[", file=file)
         for index in range(len(self.body)):
             en = ","
             if index + 1 == len(self.body):
                 en = ""
-            self.body[index].dump(level + 2, en)
-        self.indent(level + 1)
-        print("]")
-        self.indent(level)
-        print("]", en, sep="")
+            self.body[index].dump(level + 2, file, en)
+        self.indent(level + 1, file)
+        print("]", file=file)
+        self.indent(level, file)
+        print("]", en, sep="", file=file)
 
 
 class PrintStatement(Statement):
@@ -259,14 +259,14 @@ class PrintStatement(Statement):
     def __str__(self) -> str:
         return f"PrintStatement[body={self.body}]"
 
-    def dump(self, level, en=""):
-        self.indent(level)
-        print("PrintStatement[")
-        self.indent(level + 1)
-        print(f"body=", end="")
-        self.body.dump(level + 2, en="")
-        self.indent(level)
-        print("]", en, sep="")
+    def dump(self, level, file, en=""):
+        self.indent(level, file)
+        print("PrintStatement[", file=file)
+        self.indent(level + 1, file)
+        print(f"body=", end="", file=file)
+        self.body.dump(level + 2, file, en="")
+        self.indent(level, file)
+        print("]", en, sep="", file=file)
 
 
 class Type(Statement):
@@ -291,20 +291,20 @@ class Declaration(Statement):
     variable = None
     value = None
 
-    def dump(self, level, en=""):
-        self.indent(level)
-        print("Declaration[")
-        self.indent(level + 1)
-        print(f"variable=", end="")
-        self.variable.dump(level + 2, en=",")
-        self.indent(level + 1)
-        print(f"value=", end="")
+    def dump(self, level, file, en=""):
+        self.indent(level, file)
+        print("Declaration[", file=file)
+        self.indent(level + 1, file)
+        print(f"variable=", end="", file=file)
+        self.variable.dump(level + 2, file, en=",")
+        self.indent(level + 1, file)
+        print(f"value=", end="", file=file)
         if self.value == None:
-            print("None")
+            print("None", file=file)
         else:
-            self.value.dump(level + 2, en="")
-        self.indent(level)
-        print("]", en, sep="")
+            self.value.dump(level + 2, file, en="")
+        self.indent(level, file)
+        print("]", en, sep="", file=file)
 
 
 class DeclarationStatement(Statement):
@@ -316,22 +316,22 @@ class DeclarationStatement(Statement):
             + "]]"
         )
 
-    def dump(self, level, en=""):
-        self.indent(level)
-        print("DeclarationStatement[")
-        self.indent(level + 1)
-        print(f"type={self.type},")
-        self.indent(level + 1)
-        print(f"variables=[")
+    def dump(self, level, file, en=""):
+        self.indent(level, file)
+        print("DeclarationStatement[", file=file)
+        self.indent(level + 1, file)
+        print(f"type={self.type},", file=file)
+        self.indent(level + 1, file)
+        print(f"variables=[", file=file)
         for index in range(len(self.variables)):
             if index + 1 < len(self.variables):
-                self.variables[index].dump(level + 2, en=",")
+                self.variables[index].dump(level + 2, file, en=",")
             else:
-                self.variables[index].dump(level + 2, en="")
-        self.indent(level + 1)
-        print("]")
-        self.indent(level)
-        print("]", en, sep="")
+                self.variables[index].dump(level + 2, file, en="")
+        self.indent(level + 1, file)
+        print("]", file=file)
+        self.indent(level, file)
+        print("]", en, sep="", file=file)
 
     type = None
     variables = None
@@ -342,17 +342,17 @@ class AssignStatement(Statement):
     def __str__(self) -> str:
         return f"AssignStatement[variable={self.variable},value={self.value}]"
 
-    def dump(self, level, en=""):
-        self.indent(level)
-        print("AssignStatement[")
-        self.indent(level + 1)
-        print(f"variable=", end="")
-        self.variable.dump(level + 2, en=",")
-        self.indent(level + 1)
-        print(f"value=", end="")
-        self.value.dump(level + 2, en="")
-        self.indent(level)
-        print("]", en, sep="")
+    def dump(self, level, file, en=""):
+        self.indent(level, file)
+        print("AssignStatement[", file=file)
+        self.indent(level + 1, file)
+        print(f"variable=", end="", file=file)
+        self.variable.dump(level + 2, file, en=",")
+        self.indent(level + 1, file)
+        print(f"value=", end="", file=file)
+        self.value.dump(level + 2, file, en="")
+        self.indent(level, file)
+        print("]", en, sep="", file=file)
 
     variable = None
     value = None
