@@ -87,7 +87,8 @@ class Parser:
 
         self.scanner.scan(path)
         self.match()
-        print(self.parser_start())
+        result = self.parser_start()
+        result.dump(0)
 
     def parser_start(self) -> bool:
         """
