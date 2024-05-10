@@ -1,42 +1,388 @@
-Buildfile: /home/kannaaa3/Compiler/Lexical Analyzer/JFlex/build.xml
+Buildfile: /home/kannaaa3/.git/JFlexCup/build.xml
 
 init:
 
 generate:
+      [cup] This is CUP v0.11b 20140611 (SVN rev 31)
+      [cup] Authors : Scott E. Hudson, Frank Flannery, Michael Petter and C. Scott Ananian
+      [cup] Bugreports to petter@cs.tum.edu
+      [cup] checking, whether this run is necessary
+      [cup] Parserfile and symbolfile are existing
+      [cup] Parserfile /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java is actual
+      [cup] Symbolfile/home/kannaaa3/.git/JFlexCup/src/upl/sym.java is actual
+      [cup] skipping generation of /home/kannaaa3/.git/JFlexCup/cup/Parser.cup
+      [cup] use option force="true" to override
 
 compile:
-    [javac] /home/kannaaa3/Compiler/Lexical Analyzer/JFlex/build.xml:27: warning: 'includeantruntime' was not set, defaulting to build.sysclasspath=last; set to false for repeatable builds
-
-jar:
-
-BUILD SUCCESSFUL
-Total time: 0 seconds
-(BEGIN, begin)
-(INT_T, int)
-(IDENTIFIER, x1)
-(SEMICOLON, ;)
-(INT_T, int)
-(IDENTIFIER, y22)
-(ASSIGN, =)
-(IDENTIFIER, x)
-(ADD, +)
-(NUMBER, 1)
-(SEMICOLON, ;)
-(BOOL_T, bool)
-(IDENTIFIER, a)
-(SEMICOLON, ;)
-(IF, if)
-(IDENTIFIER, x)
-(ROP, >)
-(IDENTIFIER, a)
-(THEN, then)
-(LEFT_PARENTHESIS, {)
-(INT_T, int)
-(IDENTIFIER, c)
-(ASSIGN, =)
-(NUMBER, 1)
-(SEMICOLON, ;)
-(RIGHT_PARENTHESIS, })
-(ELSE, else)
-(LEFT_PARENTHESIS, {)
-EOF
+    [javac] /home/kannaaa3/.git/JFlexCup/build.xml:34: warning: 'includeantruntime' was not set, defaulting to build.sysclasspath=last; set to false for repeatable builds
+    [javac] Compiling 3 source files to /home/kannaaa3/.git/JFlexCup/bin
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:11: error: package java_cup.runtime.ComplexSymbolFactory does not exist
+    [javac] import java_cup.runtime.ComplexSymbolFactory.Location;
+    [javac]                                             ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:16: error: package java_cup.runtime does not exist
+    [javac] public class Parser extends java_cup.runtime.lr_parser {
+    [javac]                                             ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:22: error: package java_cup.runtime does not exist
+    [javac]   public Parser(java_cup.runtime.Scanner s) {super(s);}
+    [javac]                                 ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:25: error: package java_cup.runtime does not exist
+    [javac]   public Parser(java_cup.runtime.Scanner s, java_cup.runtime.SymbolFactory sf) {super(s,sf);}
+    [javac]                                 ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:25: error: package java_cup.runtime does not exist
+    [javac]   public Parser(java_cup.runtime.Scanner s, java_cup.runtime.SymbolFactory sf) {super(s,sf);}
+    [javac]                                                             ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:148: error: package java_cup.runtime does not exist
+    [javac]     java_cup.runtime.lr_parser parser,
+    [javac]                     ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:146: error: package java_cup.runtime does not exist
+    [javac]   public java_cup.runtime.Symbol do_action(
+    [javac]                          ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:175: error: cannot find symbol
+    [javac]   public void syntax_error(Symbol current_token){ 
+    [javac]                            ^
+    [javac]   symbol:   class Symbol
+    [javac]   location: class Parser
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:196: error: package java_cup.runtime does not exist
+    [javac]     java_cup.runtime.lr_parser CUP$Parser$parser,
+    [javac]                     ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:194: error: package java_cup.runtime does not exist
+    [javac]   public final java_cup.runtime.Symbol CUP$Parser$do_action_part00000000(
+    [javac]                                ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:511: error: package java_cup.runtime does not exist
+    [javac]     java_cup.runtime.lr_parser CUP$Parser$parser,
+    [javac]                     ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:509: error: package java_cup.runtime does not exist
+    [javac]   public final java_cup.runtime.Symbol CUP$Parser$do_action(
+    [javac]                                ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:9: error: package java_cup.runtime does not exist
+    [javac] import java_cup.runtime.*;
+    [javac] ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Main.java:10: error: cannot find symbol
+    [javac]        Scanner s=null;
+    [javac]        ^
+    [javac]   symbol:   class Scanner
+    [javac]   location: class Main
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Main.java:12: error: cannot find symbol
+    [javac]             s= new Scanner(new InputStreamReader(System.in));
+    [javac]                    ^
+    [javac]   symbol:   class Scanner
+    [javac]   location: class Main
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Main.java:14: error: cannot find symbol
+    [javac]             s = new Scanner(new InputStreamReader(new java.io.FileInputStream(args[0])));
+    [javac]                     ^
+    [javac]   symbol:   class Scanner
+    [javac]   location: class Main
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:29: error: cannot find symbol
+    [javac]     unpackFromStrings(new String[] {
+    [javac]     ^
+    [javac]   symbol:   method unpackFromStrings(String[])
+    [javac]   location: class Parser
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:47: error: cannot find symbol
+    [javac]     unpackFromStrings(new String[] {
+    [javac]     ^
+    [javac]   symbol:   method unpackFromStrings(String[])
+    [javac]   location: class Parser
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:100: error: cannot find symbol
+    [javac]     unpackFromStrings(new String[] {
+    [javac]     ^
+    [javac]   symbol:   method unpackFromStrings(String[])
+    [javac]   location: class Parser
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:202: error: package java_cup.runtime does not exist
+    [javac]       java_cup.runtime.Symbol CUP$Parser$result;
+    [javac]                       ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:212: error: cannot find symbol
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("stmtList",0, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                         ^
+    [javac]   symbol:   method getSymbolFactory()
+    [javac]   location: variable parser of type Parser
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:212: error: package java_cup.runtime does not exist
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("stmtList",0, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                                                                                       ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:212: error: package java_cup.runtime does not exist
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("stmtList",0, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                                                                                                                                                                ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:220: error: cannot find symbol
+    [javac] 		Location start_valxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).xleft;
+    [javac] 		^
+    [javac]   symbol:   class Location
+    [javac]   location: class CUP$Parser$actions
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:220: error: package java_cup.runtime.ComplexSymbolFactory does not exist
+    [javac] 		Location start_valxleft = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).xleft;
+    [javac] 		                                                                 ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:221: error: cannot find symbol
+    [javac] 		Location start_valxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).xright;
+    [javac] 		^
+    [javac]   symbol:   class Location
+    [javac]   location: class CUP$Parser$actions
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:221: error: package java_cup.runtime.ComplexSymbolFactory does not exist
+    [javac] 		Location start_valxright = ((java_cup.runtime.ComplexSymbolFactory.ComplexSymbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).xright;
+    [javac] 		                                                                  ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:222: error: package java_cup.runtime does not exist
+    [javac] 		Object start_val = (Object)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
+    [javac] 		                                             ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:224: error: cannot find symbol
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("$START",0, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                         ^
+    [javac]   symbol:   method getSymbolFactory()
+    [javac]   location: variable parser of type Parser
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:224: error: package java_cup.runtime does not exist
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("$START",0, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                                                                                     ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:224: error: package java_cup.runtime does not exist
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("$START",0, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                                                                                                                                                              ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:235: error: cannot find symbol
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("stmtList",0, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                         ^
+    [javac]   symbol:   method getSymbolFactory()
+    [javac]   location: variable parser of type Parser
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:235: error: package java_cup.runtime does not exist
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("stmtList",0, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                                                                                       ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:235: error: package java_cup.runtime does not exist
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("stmtList",0, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                                                                                                                                           ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:244: error: cannot find symbol
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("stmt",1, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-6)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                         ^
+    [javac]   symbol:   method getSymbolFactory()
+    [javac]   location: variable parser of type Parser
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:244: error: package java_cup.runtime does not exist
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("stmt",1, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-6)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                                                                                   ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:244: error: package java_cup.runtime does not exist
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("stmt",1, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-6)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                                                                                                                                                            ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:253: error: cannot find symbol
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("stmt",1, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-7)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                         ^
+    [javac]   symbol:   method getSymbolFactory()
+    [javac]   location: variable parser of type Parser
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:253: error: package java_cup.runtime does not exist
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("stmt",1, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-7)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                                                                                   ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:253: error: package java_cup.runtime does not exist
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("stmt",1, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-7)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                                                                                                                                                            ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:262: error: cannot find symbol
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("stmt",1, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                         ^
+    [javac]   symbol:   method getSymbolFactory()
+    [javac]   location: variable parser of type Parser
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:262: error: package java_cup.runtime does not exist
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("stmt",1, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                                                                                   ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:262: error: package java_cup.runtime does not exist
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("stmt",1, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                                                                                                                                       ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:271: error: cannot find symbol
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("stmt",1, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                         ^
+    [javac]   symbol:   method getSymbolFactory()
+    [javac]   location: variable parser of type Parser
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:271: error: package java_cup.runtime does not exist
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("stmt",1, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                                                                                   ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:271: error: package java_cup.runtime does not exist
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("stmt",1, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                                                                                                                                       ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:280: error: cannot find symbol
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("stmt",1, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                         ^
+    [javac]   symbol:   method getSymbolFactory()
+    [javac]   location: variable parser of type Parser
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:280: error: package java_cup.runtime does not exist
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("stmt",1, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                                                                                   ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:280: error: package java_cup.runtime does not exist
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("stmt",1, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                                                                                                                                                            ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:289: error: cannot find symbol
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("ifTail",6, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                         ^
+    [javac]   symbol:   method getSymbolFactory()
+    [javac]   location: variable parser of type Parser
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:289: error: package java_cup.runtime does not exist
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("ifTail",6, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                                                                                     ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:289: error: package java_cup.runtime does not exist
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("ifTail",6, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                                                                                                                                                              ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:298: error: cannot find symbol
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("ifTail",6, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                         ^
+    [javac]   symbol:   method getSymbolFactory()
+    [javac]   location: variable parser of type Parser
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:298: error: package java_cup.runtime does not exist
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("ifTail",6, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                                                                                     ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:298: error: package java_cup.runtime does not exist
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("ifTail",6, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                                                                                                                                         ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:307: error: cannot find symbol
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("Declaration",8, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                         ^
+    [javac]   symbol:   method getSymbolFactory()
+    [javac]   location: variable parser of type Parser
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:307: error: package java_cup.runtime does not exist
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("Declaration",8, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                                                                                          ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:307: error: package java_cup.runtime does not exist
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("Declaration",8, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                                                                                                                                                                   ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:316: error: cannot find symbol
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("Type",10, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                         ^
+    [javac]   symbol:   method getSymbolFactory()
+    [javac]   location: variable parser of type Parser
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:316: error: package java_cup.runtime does not exist
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("Type",10, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                                                                                    ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:316: error: package java_cup.runtime does not exist
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("Type",10, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                                                                                                                                        ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:325: error: cannot find symbol
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("Type",10, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                         ^
+    [javac]   symbol:   method getSymbolFactory()
+    [javac]   location: variable parser of type Parser
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:325: error: package java_cup.runtime does not exist
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("Type",10, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                                                                                    ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:325: error: package java_cup.runtime does not exist
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("Type",10, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                                                                                                                                        ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:334: error: cannot find symbol
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("L",11, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                         ^
+    [javac]   symbol:   method getSymbolFactory()
+    [javac]   location: variable parser of type Parser
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:334: error: package java_cup.runtime does not exist
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("L",11, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                                                                                 ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:334: error: package java_cup.runtime does not exist
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("L",11, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                                                                                                                                                          ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:343: error: cannot find symbol
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("L1",12, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                         ^
+    [javac]   symbol:   method getSymbolFactory()
+    [javac]   location: variable parser of type Parser
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:343: error: package java_cup.runtime does not exist
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("L1",12, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                                                                                  ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:343: error: package java_cup.runtime does not exist
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("L1",12, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                                                                                                                                      ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:352: error: cannot find symbol
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("L1",12, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                         ^
+    [javac]   symbol:   method getSymbolFactory()
+    [javac]   location: variable parser of type Parser
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:352: error: package java_cup.runtime does not exist
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("L1",12, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                                                                                  ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:352: error: package java_cup.runtime does not exist
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("L1",12, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                                                                                                                                      ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:361: error: cannot find symbol
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("L2",13, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                         ^
+    [javac]   symbol:   method getSymbolFactory()
+    [javac]   location: variable parser of type Parser
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:361: error: package java_cup.runtime does not exist
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("L2",13, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                                                                                  ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:361: error: package java_cup.runtime does not exist
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("L2",13, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                                                                                                                                                           ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:370: error: cannot find symbol
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("L2",13, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                         ^
+    [javac]   symbol:   method getSymbolFactory()
+    [javac]   location: variable parser of type Parser
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:370: error: package java_cup.runtime does not exist
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("L2",13, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                                                                                  ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:370: error: package java_cup.runtime does not exist
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("L2",13, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                                                                                                                                      ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:379: error: cannot find symbol
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("Assignment",7, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                         ^
+    [javac]   symbol:   method getSymbolFactory()
+    [javac]   location: variable parser of type Parser
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:379: error: package java_cup.runtime does not exist
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("Assignment",7, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                                                                                         ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:379: error: package java_cup.runtime does not exist
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("Assignment",7, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                                                                                                                                                                  ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:388: error: cannot find symbol
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("Expr",2, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                         ^
+    [javac]   symbol:   method getSymbolFactory()
+    [javac]   location: variable parser of type Parser
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:388: error: package java_cup.runtime does not exist
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("Expr",2, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                                                                                   ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:388: error: package java_cup.runtime does not exist
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("Expr",2, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                                                                                                                                                            ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:397: error: cannot find symbol
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("Tmp",4, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                         ^
+    [javac]   symbol:   method getSymbolFactory()
+    [javac]   location: variable parser of type Parser
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:397: error: package java_cup.runtime does not exist
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("Tmp",4, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                                                                                  ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:397: error: package java_cup.runtime does not exist
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("Tmp",4, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                                                                                                                                                           ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:406: error: cannot find symbol
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("Tmp",4, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                         ^
+    [javac]   symbol:   method getSymbolFactory()
+    [javac]   location: variable parser of type Parser
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:406: error: package java_cup.runtime does not exist
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("Tmp",4, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                                                                                  ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:406: error: package java_cup.runtime does not exist
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("Tmp",4, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                                                                                                                                      ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:415: error: cannot find symbol
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("M_Expr",3, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                         ^
+    [javac]   symbol:   method getSymbolFactory()
+    [javac]   location: variable parser of type Parser
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:415: error: package java_cup.runtime does not exist
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("M_Expr",3, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                                                                                     ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:415: error: package java_cup.runtime does not exist
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("M_Expr",3, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                                                                                                                                                              ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:424: error: cannot find symbol
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("METail",5, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                         ^
+    [javac]   symbol:   method getSymbolFactory()
+    [javac]   location: variable parser of type Parser
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:424: error: package java_cup.runtime does not exist
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("METail",5, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                                                                                     ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:424: error: package java_cup.runtime does not exist
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("METail",5, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                                                                                                                                                              ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:433: error: cannot find symbol
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("METail",5, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                         ^
+    [javac]   symbol:   method getSymbolFactory()
+    [javac]   location: variable parser of type Parser
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:433: error: package java_cup.runtime does not exist
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("METail",5, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                                                                                     ^
+    [javac] /home/kannaaa3/.git/JFlexCup/src/upl/Parser.java:433: error: package java_cup.runtime does not exist
+    [javac]               CUP$Parser$result = parser.getSymbolFactory().newSymbol("METail",5, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+    [javac]                                                                                                                                                         ^
+    [javac] 100 errors
+    [javac] only showing the first 100 errors, of 121 total; use -Xmaxerrs if you would like to see more

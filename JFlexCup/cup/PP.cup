@@ -1,0 +1,114 @@
+package upl;
+
+import java_cup.runtime.*;
+// import Example.Parser.Expr;
+import java.io.*;
+
+/* Parser code to change the way the parser reports errors (include
+   line and column number of the error). */
+parser code {:
+  // Connect this parser to a scanner!
+
+  public boolean syntaxErrors;
+  public Scanner s;
+
+
+  public void syntax_error(Symbol current_token){
+      report_error(
+          "Syntax error at line " + (current_token.left+1) + ", column "
+          + current_token.right, null
+      );
+  }
+:}
+
+/* Terminals (tokens returned by the scanner). */
+terminal BEGIN, END;  // begin, end statement
+terminal LEFT_BRACKET, RIGHT_BRACKET, LEFT_PARENTHESIS, RIGHT_PARENTHESIS, SEMICOLON, COMMA;
+terminal DO, WHILE, IF, THEN, ELSE;
+
+terminal INT_T, BOOL_T;
+terminal CONST_INT, CONST_BOOL;
+terminal IDENTIFIER;
+
+terminal ADD, MUL, ASSIGN;
+terminal ROP;           // 3 ROP
+// terminal GREATER, GREATER_EQUAL, EQUAL;
+
+terminal PRINT;
+
+terminal UNTERMINATED_CMT, ILLEGAL;
+// terminal Integer NUMBER; // TODO: Delete
+
+/* Non terminals */
+non terminal SProgram S;
+non terminal StmtList stmtList
+non terminal Stmt stmt;
+non terminal TExpr Expr;
+non terminal TMExpr M_Expr;
+non terminal Tmp, METail;
+non terminal TIfTail ifTail;
+non terminal Assignment, Declaration;
+non terminal Type, L, L1, L2;         // Declaration
+non terminal Y, Term, Factor, T2;
+
+
+precedence right ADD;            // id +(id + (id))
+precedence right MUL;            // id * (id * (id))
+precedence nonassoc ASSIGN;      // id=id=id => ERROR !
+// precedence nonassoc GREATER;
+// precedence nonassoc GREATER_EQUAL;
+// precedence nonassoc EQUAL;
+
+
+/* The grammar rules */
+
+// TODO: Return an AST Node instead
+S           ::=   BEGIN stmtList:sl END 
+                  {: RESULT = new SProgram(sl); :}
+                  ;
+
+stmtList    ::=   stmt:s SEMICOLON stmtList:sl
+                  {: RESULT = new StmtList(); :}
+                |
+                  {: RESULT = new StmtList(); :}
+                ;
+
+stmt        ::=   IF Expr:e THEN LEFT_BRACKET stmtList:sl RIGHT_BRACKET ifTail:tail
+                | DO LEFT_BRACKET stmtList RIGHT_BRACKET WHILE LEFT_PARENTHESIS Expr RIGHT_PARENTHESIS
+
+                | Assignment
+
+                | Declaration
+
+                | PRINT LEFT_PARENTHESIS Expr RIGHT_PARENTHESIS
+
+                ;
+
+ifTail      ::=   ELSE LEFT_BRACKET stmtList:sl RIGHT_BRACKET
+                  {: RESULT = new TIfTail(sl);  :}
+                | 
+                  {: RESULT = new TIfTail();    :}
+                ;
+
+Declaration ::=   Type L;
+Type        ::=   INT_T | BOOL_T;
+L           ::=   L1 L2;
+L1          ::=   IDENTIFIER | Assignment;
+L2          ::=   COMMA L | ;
+
+Assignment  ::= IDENTIFIER ASSIGN Expr;
+
+Expr        ::= M_Expr Tmp
+                  {: RESULT = new TMExpr("+", new TMExpr(13), new TMExpr(37));    :}
+                  ;
+Tmp         ::= Rop M_Expr | ;
+M_Expr      ::= Term METail;
+METail      ::= ADD M_Expr | ;
+Y           ::= IDENTIFIER | CONST_INT;
+
+Term ::= Factor T2;
+Factor ::= Y | LEFT_PARENTHESIS M_Expr RIGHT_PARENTHESIS;
+T2      ::= MUL Term | ;
+
+
+// Rop         ::=   GREATER  |  GREATER_EQUAL |  EQUAL;

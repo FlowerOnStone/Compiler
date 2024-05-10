@@ -1,11 +1,11 @@
 <project name="Compiler" default="jar" basedir=".">
   <property name="cup"     location="cup"     />
-  <property name="jflex"   location="jflex"    />
+  <property name="jflex"   location="jflex"   />
   <property name="src"     location="src"     />
-  <property name="classes" location="bin" />
+  <property name="classes" location="bin"     />
   <property name="dist"    location="dist"    />
   <property name="lib"     location="lib"     />
-  <property name="tools"   location="tools"     />
+  <property name="tools"   location="tools"   />
 
   <target name="init">
     <mkdir dir="${classes}"/>
@@ -13,16 +13,23 @@
   </target>
 
   <taskdef name="jflex" classname="jflex.anttask.JFlexTask" classpath="${tools}/jflex-full-1.9.1.jar" />
+<!-- NOTE: change -->
+  <taskdef name="cup" classname="java_cup.anttask.CUPTask" classpath="${tools}/java-cup-11b.jar"/>
   
 
   <target name="generate" depends="init">
     <jflex file="${jflex}/Scanner.jflex"  destdir="${src}" />
+    <cup srcfile="${cup}/Parser.cup"  destdir="${src}"
+        parser="Parser"
+        interface="true"
+        locations="true" />
   </target>
 
   
   <path id="libraries">
     <files includes="${lib}/java-cup-11b-runtime.jar" />
   </path>
+
   <target name="compile" depends="generate">
     <javac srcdir="${src}" destdir="${classes}">
       <classpath refid="libraries" />

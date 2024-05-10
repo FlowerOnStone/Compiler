@@ -4,9 +4,13 @@
 
 package upl;
 
+import java_cup.runtime.*;
+import java.io.*;
+
+
 
 @SuppressWarnings("fallthrough")
-class Scanner {
+class Scanner implements java_cup.runtime.Scanner, sym {
 
   /** This character denotes the end of file. */
   public static final int YYEOF = -1;
@@ -63,7 +67,7 @@ class Scanner {
   private static final String ZZ_CMAP_BLOCKS_PACKED_0 =
     "\11\0\1\1\1\2\1\3\2\2\22\0\1\1\7\0"+
     "\1\4\1\5\1\6\1\7\3\0\1\10\1\11\11\12"+
-    "\1\0\1\13\1\14\1\15\1\14\2\0\32\16\6\0"+
+    "\1\0\1\13\1\0\1\14\1\15\2\0\32\16\6\0"+
     "\1\17\1\20\1\16\1\21\1\22\1\23\1\24\1\25"+
     "\1\26\2\16\1\27\1\16\1\30\1\31\1\32\1\16"+
     "\1\33\1\34\1\35\1\36\1\16\1\37\3\16\1\40"+
@@ -95,14 +99,14 @@ class Scanner {
 
   private static final String ZZ_ACTION_PACKED_0 =
     "\1\0\1\1\1\2\1\3\1\4\1\5\1\6\1\1"+
-    "\2\7\1\10\1\11\1\12\11\13\1\14\1\15\1\16"+
-    "\1\17\1\11\3\13\1\20\3\13\1\21\5\13\2\0"+
-    "\1\22\3\13\1\23\1\13\1\24\4\13\1\17\1\13"+
+    "\2\7\1\10\1\11\1\12\11\13\1\14\1\15\1\0"+
+    "\1\16\1\17\1\20\3\13\1\21\3\13\1\22\5\13"+
+    "\1\0\3\13\1\23\1\13\1\24\4\13\1\16\1\13"+
     "\1\25\1\26\1\13\1\27\1\30\1\13\1\31\1\32"+
     "\1\33";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[64];
+    int [] result = new int[63];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -128,16 +132,16 @@ class Scanner {
 
   private static final String ZZ_ROWMAP_PACKED_0 =
     "\0\0\0\42\0\42\0\42\0\42\0\42\0\42\0\104"+
-    "\0\42\0\146\0\42\0\210\0\210\0\252\0\314\0\356"+
-    "\0\u0110\0\u0132\0\u0154\0\u0176\0\u0198\0\u01ba\0\42\0\42"+
-    "\0\u01dc\0\u01fe\0\42\0\u0220\0\u0242\0\u0264\0\252\0\u0286"+
-    "\0\u02a8\0\u02ca\0\252\0\u02ec\0\u030e\0\u0330\0\u0352\0\u0374"+
-    "\0\u01dc\0\u0396\0\u03b8\0\u03da\0\u03fc\0\u041e\0\252\0\u0440"+
-    "\0\252\0\u0462\0\u0484\0\u04a6\0\u04c8\0\42\0\u04ea\0\252"+
-    "\0\252\0\u050c\0\252\0\252\0\u052e\0\252\0\252\0\252";
+    "\0\42\0\146\0\42\0\210\0\252\0\314\0\356\0\u0110"+
+    "\0\u0132\0\u0154\0\u0176\0\u0198\0\u01ba\0\u01dc\0\42\0\42"+
+    "\0\u01fe\0\u0220\0\42\0\42\0\u0242\0\u0264\0\u0286\0\314"+
+    "\0\u02a8\0\u02ca\0\u02ec\0\314\0\u030e\0\u0330\0\u0352\0\u0374"+
+    "\0\u0396\0\u03b8\0\u03da\0\u03fc\0\u041e\0\314\0\u0440\0\314"+
+    "\0\u0462\0\u0484\0\u04a6\0\u04c8\0\42\0\u04ea\0\314\0\314"+
+    "\0\u050c\0\314\0\314\0\u052e\0\314\0\314\0\314";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[64];
+    int [] result = new int[63];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -164,33 +168,32 @@ class Scanner {
     "\1\11\1\12\1\13\1\14\1\15\2\16\1\17\1\20"+
     "\1\21\1\22\2\16\1\23\3\16\1\24\2\16\1\25"+
     "\1\16\1\26\1\27\1\30\50\0\1\31\1\0\1\32"+
-    "\42\0\2\12\44\0\1\33\35\0\2\34\3\0\22\16"+
-    "\13\0\2\34\3\0\4\16\1\35\6\16\1\36\6\16"+
-    "\13\0\2\34\3\0\13\16\1\37\6\16\13\0\2\34"+
-    "\3\0\11\16\1\40\1\41\7\16\13\0\2\34\3\0"+
-    "\1\16\1\42\20\16\13\0\2\34\3\0\5\16\1\43"+
-    "\4\16\1\44\7\16\13\0\2\34\3\0\15\16\1\45"+
-    "\4\16\13\0\2\34\3\0\7\16\1\46\5\16\1\47"+
-    "\4\16\13\0\2\34\3\0\7\16\1\50\12\16\2\0"+
-    "\6\51\1\52\33\51\2\32\2\0\36\32\11\0\2\34"+
-    "\3\0\22\53\13\0\2\34\3\0\6\16\1\54\13\16"+
-    "\13\0\2\34\3\0\13\16\1\55\6\16\13\0\2\34"+
-    "\3\0\16\16\1\56\3\16\13\0\2\34\3\0\3\16"+
-    "\1\57\16\16\13\0\2\34\3\0\11\16\1\60\10\16"+
-    "\13\0\2\34\3\0\17\16\1\61\2\16\13\0\2\34"+
-    "\3\0\10\16\1\62\11\16\13\0\2\34\3\0\4\16"+
-    "\1\63\15\16\13\0\2\34\3\0\20\16\1\64\1\16"+
-    "\13\0\2\34\3\0\10\16\1\65\11\16\2\0\6\51"+
-    "\1\52\1\51\1\66\31\51\11\0\2\53\3\0\22\53"+
-    "\13\0\2\34\3\0\10\16\1\67\11\16\13\0\2\34"+
-    "\3\0\11\16\1\70\10\16\13\0\2\34\3\0\4\16"+
-    "\1\71\15\16\13\0\2\34\3\0\16\16\1\64\3\16"+
-    "\13\0\2\34\3\0\12\16\1\72\7\16\13\0\2\34"+
-    "\3\0\12\16\1\73\7\16\13\0\2\34\3\0\4\16"+
-    "\1\74\15\16\13\0\2\34\3\0\11\16\1\75\10\16"+
-    "\13\0\2\34\3\0\12\16\1\76\7\16\13\0\2\34"+
-    "\3\0\17\16\1\77\2\16\13\0\2\34\3\0\4\16"+
-    "\1\100\15\16\2\0";
+    "\42\0\2\12\43\0\1\33\41\0\1\34\36\0\2\35"+
+    "\3\0\22\16\13\0\2\35\3\0\4\16\1\36\6\16"+
+    "\1\37\6\16\13\0\2\35\3\0\13\16\1\40\6\16"+
+    "\13\0\2\35\3\0\11\16\1\41\1\42\7\16\13\0"+
+    "\2\35\3\0\1\16\1\43\20\16\13\0\2\35\3\0"+
+    "\5\16\1\44\4\16\1\45\7\16\13\0\2\35\3\0"+
+    "\15\16\1\46\4\16\13\0\2\35\3\0\7\16\1\47"+
+    "\5\16\1\50\4\16\13\0\2\35\3\0\7\16\1\51"+
+    "\12\16\2\0\6\31\1\52\33\31\2\32\2\0\36\32"+
+    "\11\0\2\35\40\0\2\35\3\0\6\16\1\53\13\16"+
+    "\13\0\2\35\3\0\13\16\1\54\6\16\13\0\2\35"+
+    "\3\0\16\16\1\55\3\16\13\0\2\35\3\0\3\16"+
+    "\1\56\16\16\13\0\2\35\3\0\11\16\1\57\10\16"+
+    "\13\0\2\35\3\0\17\16\1\60\2\16\13\0\2\35"+
+    "\3\0\10\16\1\61\11\16\13\0\2\35\3\0\4\16"+
+    "\1\62\15\16\13\0\2\35\3\0\20\16\1\63\1\16"+
+    "\13\0\2\35\3\0\10\16\1\64\11\16\2\0\6\31"+
+    "\1\52\1\31\1\65\31\31\11\0\2\35\3\0\10\16"+
+    "\1\66\11\16\13\0\2\35\3\0\11\16\1\67\10\16"+
+    "\13\0\2\35\3\0\4\16\1\70\15\16\13\0\2\35"+
+    "\3\0\16\16\1\63\3\16\13\0\2\35\3\0\12\16"+
+    "\1\71\7\16\13\0\2\35\3\0\12\16\1\72\7\16"+
+    "\13\0\2\35\3\0\4\16\1\73\15\16\13\0\2\35"+
+    "\3\0\11\16\1\74\10\16\13\0\2\35\3\0\12\16"+
+    "\1\75\7\16\13\0\2\35\3\0\17\16\1\76\2\16"+
+    "\13\0\2\35\3\0\4\16\1\77\15\16\2\0";
 
   private static int [] zzUnpacktrans() {
     int [] result = new int[1360];
@@ -237,10 +240,10 @@ class Scanner {
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
     "\1\0\6\11\1\1\1\11\1\1\1\11\13\1\2\11"+
-    "\2\1\1\11\15\1\2\0\13\1\1\11\12\1";
+    "\1\0\1\1\2\11\15\1\1\0\12\1\1\11\12\1";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[64];
+    int [] result = new int[63];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -306,6 +309,7 @@ class Scanner {
   private int yycolumn;
 
   /** Number of characters up to the start of the matched text. */
+  @SuppressWarnings("unused")
   private long yychar;
 
   /** Whether the scanner is currently at the beginning of a line. */
@@ -313,12 +317,17 @@ class Scanner {
   private boolean zzAtBOL = true;
 
   /** Whether the user-EOF-code has already been executed. */
-  @SuppressWarnings("unused")
   private boolean zzEOFDone;
 
   /* user code: */
+  StringBuffer string = new StringBuffer();
 
-	
+  private Symbol symbol(int type) {
+      return new Symbol(type, yyline, yycolumn);
+    }
+  private Symbol symbol(int type, Object value) {
+      return new Symbol(type, yyline, yycolumn, value);
+    }
 
 
   /**
@@ -581,6 +590,18 @@ class Scanner {
   }
 
 
+  /**
+   * Contains user EOF-code, which will be executed exactly once,
+   * when the end of file is reached
+   */
+  private void zzDoEOF() throws java.io.IOException {
+    if (!zzEOFDone) {
+      zzEOFDone = true;
+    
+  yyclose();    }
+  }
+
+
 
 
   /**
@@ -590,7 +611,7 @@ class Scanner {
    * @return the next token.
    * @exception java.io.IOException if any I/O-Error occurs.
    */
-  public int yylex() throws java.io.IOException
+  @Override  public java_cup.runtime.Symbol next_token() throws java.io.IOException
   {
     int zzInput;
     int zzAction;
@@ -607,8 +628,6 @@ class Scanner {
 
     while (true) {
       zzMarkedPosL = zzMarkedPos;
-
-      yychar+= zzMarkedPosL-zzStartRead;
 
       boolean zzR = false;
       int zzCh;
@@ -729,13 +748,14 @@ class Scanner {
 
       if (zzInput == YYEOF && zzStartRead == zzCurrentPos) {
         zzAtEOF = true;
-          {     System.out.println("EOF"); return 1;
+            zzDoEOF();
+          {     System.out.println("EOF"); return symbol(sym.EOF);
  }
       }
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1:
-            { System.out.println("Illegal character: line "+yyline + " col " + yycolumn); return 0;
+            { System.out.println("Illegal character: line "+yyline + " col " + yycolumn); return symbol(sym.ILLEGAL);
             }
           // fall through
           case 28: break;
@@ -745,127 +765,127 @@ class Scanner {
           // fall through
           case 29: break;
           case 3:
-            { System.out.println("(LEFT_BRACKET, " + yytext()+")"); return 0;
+            { System.out.println("(LEFT_BRACKET, " + yytext()+")"); return symbol(sym.LEFT_BRACKET);
             }
           // fall through
           case 30: break;
           case 4:
-            { System.out.println("(RIGHT_BRACKET, " + yytext()+")"); return 0;
+            { System.out.println("(RIGHT_BRACKET, " + yytext()+")"); return symbol(sym.RIGHT_BRACKET);
             }
           // fall through
           case 31: break;
           case 5:
-            { System.out.println("(MUL, " + yytext()+")"); return 0;
+            { System.out.println("(MUL, " + yytext()+")"); return symbol(sym.MUL);
             }
           // fall through
           case 32: break;
           case 6:
-            { System.out.println("(ADD, " + yytext()+")"); return 0;
+            { System.out.println("(ADD, " + yytext()+")"); return symbol(sym.ADD);
             }
           // fall through
           case 33: break;
           case 7:
-            { System.out.println("(NUMBER, " + yytext()+")"); return 0;
+            { System.out.println("(CONST_INT, " + yytext()+")"); return symbol(sym.CONST_INT);
             }
           // fall through
           case 34: break;
           case 8:
-            { System.out.println("(SEMICOLON, " + yytext()+")"); return 0;
+            { System.out.println("(SEMICOLON, " + yytext()+")"); return symbol(sym.SEMICOLON);
             }
           // fall through
           case 35: break;
           case 9:
-            { System.out.println("(ROP, " + yytext()+")"); return 0;
+            { System.out.println("(ASSIGN, " + yytext()+")"); return symbol(sym.ASSIGN);
             }
           // fall through
           case 36: break;
           case 10:
-            { System.out.println("(ASSIGN, " + yytext()+")"); return 0;
+            { System.out.println("(ROP, " + yytext()+")"); return symbol(sym.GREATER);
             }
           // fall through
           case 37: break;
           case 11:
-            { System.out.println("(IDENTIFIER, " + yytext()+")"); return 0;
+            { System.out.println("(IDENTIFIER, " + yytext()+")"); return symbol(sym.IDENTIFIER);
             }
           // fall through
           case 38: break;
           case 12:
-            { System.out.println("(LEFT_PARENTHESIS, " + yytext()+")"); return 0;
+            { System.out.println("(LEFT_PARENTHESIS, " + yytext()+")"); return symbol(sym.LEFT_PARENTHESIS);
             }
           // fall through
           case 39: break;
           case 13:
-            { System.out.println("(RIGHT_PARENTHESIS, " + yytext()+")"); return 0;
+            { System.out.println("(RIGHT_PARENTHESIS, " + yytext()+")"); return symbol(sym.RIGHT_PARENTHESIS);
             }
           // fall through
           case 40: break;
           case 14:
-            { System.out.println("Unterminated comment");
+            { 
             }
           // fall through
           case 41: break;
           case 15:
-            { ;
+            { System.out.println("(ROP, " + yytext()+")"); return symbol(sym.EQUAL);
             }
           // fall through
           case 42: break;
           case 16:
-            { System.out.println("(DO, " + yytext()+")"); return 0;
+            { System.out.println("(ROP, " + yytext()+")"); return symbol(sym.GREATER_EQUAL);
             }
           // fall through
           case 43: break;
           case 17:
-            { System.out.println("(IF, " + yytext()+")"); return 0;
+            { System.out.println("(DO, " + yytext()+")"); return symbol(sym.DO);
             }
           // fall through
           case 44: break;
           case 18:
-            { System.out.println("Illegal identifier: " + yytext()+" at line " + yyline + " col " + yycolumn); return 0;
+            { System.out.println("(IF, " + yytext()+")"); return symbol(sym.IF);
             }
           // fall through
           case 45: break;
           case 19:
-            { System.out.println("(END, " + yytext()+")"); return 0;
+            { System.out.println("(END, " + yytext()+")"); return symbol(sym.END);
             }
           // fall through
           case 46: break;
           case 20:
-            { System.out.println("(INT_T, " + yytext()+")"); return 0;
+            { System.out.println("(INT_T, " + yytext()+")"); return symbol(sym.INT_T);
             }
           // fall through
           case 47: break;
           case 21:
-            { System.out.println("(BOOL_T, " + yytext()+")"); return 0;
+            { System.out.println("(BOOL_T, " + yytext()+")"); return symbol(sym.BOOL_T);
             }
           // fall through
           case 48: break;
           case 22:
-            { System.out.println("(ELSE, " + yytext()+")"); return 0;
+            { System.out.println("(ELSE, " + yytext()+")"); return symbol(sym.ELSE);
             }
           // fall through
           case 49: break;
           case 23:
-            { System.out.println("(THEN, " + yytext()+")"); return 0;
+            { System.out.println("(THEN, " + yytext()+")"); return symbol(sym.THEN);
             }
           // fall through
           case 50: break;
           case 24:
-            { System.out.println("(BOOL CONST, " + yytext()+")"); return 0;
+            { System.out.println("(CONST_BOOL, " + yytext()+")"); return symbol(sym.CONST_BOOL);
             }
           // fall through
           case 51: break;
           case 25:
-            { System.out.println("(BEGIN, " + yytext()+")"); return 0;
+            { System.out.println("(BEGIN, " + yytext()+")"); return symbol(sym.BEGIN);
             }
           // fall through
           case 52: break;
           case 26:
-            { System.out.println("(PRINT, " + yytext()+")"); return 0;
+            { System.out.println("(PRINT, " + yytext()+")"); return symbol(sym.PRINT);
             }
           // fall through
           case 53: break;
           case 27:
-            { System.out.println("(WHILE, " + yytext()+")"); return 0;
+            { System.out.println("(WHILE, " + yytext()+")"); return symbol(sym.WHILE);
             }
           // fall through
           case 54: break;

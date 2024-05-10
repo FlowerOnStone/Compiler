@@ -48,15 +48,7 @@ non terminal TExpr Expr;
 non terminal TMExpr M_Expr;
 non terminal TIfTail ifTail;
 non terminal TAssignment Assignment;
-non terminal TDeclaration Declaration;
-non terminal TType Type;         
-
-non terminal TExprTail ExprTail;
-non terminal TMETail METail;
-non terminal TY Y;
-
-non terminal TTerm Term;
-
+non terminal TType Type;         // Declaration
 
 non terminal TIdentifier Identifier_t;
 non terminal TRop Rop;           // 3 ROP
@@ -71,27 +63,33 @@ precedence nonassoc EQUAL;
 
 
 /* The grammar rules */
-S           ::=   BEGIN stmtList:sl END                     {: RESULT = new SProgram(sl); :} ;
+S           ::=   BEGIN stmtList:sl END 
+                  {: RESULT = new SProgram(sl); :}
+                  ;
 
-stmtList    ::=   stmt:s SEMICOLON stmtList:sl              {: RESULT = new StmtList(s, sl); :}
-                |                                           {: RESULT = new StmtList(); :} ;
+stmtList    ::=   stmt:s SEMICOLON stmtList:sl
+                  {: RESULT = new StmtList(s, sl); :}
+                | {: RESULT = new StmtList(); :}
+                ;
 
-stmt        ::=   IF Expr:e THEN LEFT_BRACKET stmtList:sl RIGHT_BRACKET ifTail:tail                           {: RESULT = new TIf(e, sl, tail); :}
-                | DO LEFT_BRACKET stmtList:sl RIGHT_BRACKET WHILE LEFT_PARENTHESIS Expr:c RIGHT_PARENTHESIS   {: RESULT = new TDoWhile(sl, c); :}
-                | Assignment:a                                      {: RESULT = a; :}
-                | Declaration:d                                     {: RESULT = d; :}
-                | PRINT LEFT_PARENTHESIS Expr:e RIGHT_PARENTHESIS {: RESULT = new SPrint(e); :} ;
+stmt        ::=   IF Expr:e THEN LEFT_BRACKET stmtList:sl RIGHT_BRACKET ifTail:tail
+                  {: RESULT = new TIf(e, sl, tail); :}
+                | DO LEFT_BRACKET stmtList:sl RIGHT_BRACKET WHILE LEFT_PARENTHESIS Expr:c RIGHT_PARENTHESIS
+                  {: RESULT = new TDoWhile(sl, c); :}
+                | Identifier_t:id ASSIGN Expr:e                   // Assignment
+                  {: RESULT = new TAssignment(id, e); :}
+                | Type:t Identifier_t:id ASSIGN Expr:val         // Declaration
+                  {: RESULT = new TDeclaration(t, id, val); :}
+                | Type:t Identifier_t:id                         // Declaration
+                  {: RESULT = new TDeclaration(t, id); :}
+                | PRINT LEFT_PARENTHESIS Expr:e RIGHT_PARENTHESIS
+                  {: RESULT = new SPrint(e); :}
+                  ;
 
 
-Assignment  ::=  Identifier_t:id ASSIGN Expr:e {: RESULT = new TAssignment(id, e); :};
-
-
-Declaration ::=   Type:t Identifier_t:id ASSIGN Expr:val          {: RESULT = new TDeclaration(t, id, val); :}
-                | Type:t Identifier_t:id                          {: RESULT = new TDeclaration(t, id); :};
-
-
-ifTail      ::=   ELSE LEFT_BRACKET stmtList:sl RIGHT_BRACKET   {: RESULT = new TIfTail(sl);  :}
-                |                                               {: RESULT = new TIfTail();    :} ;
+ifTail      ::=   ELSE LEFT_BRACKET stmtList:sl RIGHT_BRACKET
+                  {: RESULT = new TIfTail(sl);  :}
+                | {: RESULT = new TIfTail();    :} ;
 
 Type        ::=   INT_T
                   {: RESULT = new TType("int"); :}
@@ -99,21 +97,27 @@ Type        ::=   INT_T
                   {: RESULT = new TType("bool"); :} 
                   ;
 
+Expr        ::=   M_Expr:e      {: RESULT = e; :} 
+                | BoolExpr:e    {: RESULT = e; :} ;
 
-Expr ::= M_Expr:e ExprTail:tail       {: RESULT = new TExpr(e, tail); :};
+M_Expr      ::=   CONST_INT:num
+                  {: RESULT = new TInt_T(num); :}
+                | Identifier_t:id
+                  {: RESULT = id; :}
+                | LEFT_PARENTHESIS Expr:e RIGHT_PARENTHESIS
+                  {: RESULT = e; :}
+                | Expr:l ADD Expr:r 
+                  {: RESULT = new TMExpr("+", l, r); :}
+                | Expr:l MUL Expr:r
+                  {: RESULT = new TMExpr("*", l, r); :}
+                ;
 
-ExprTail    ::=   Rop:r M_Expr:me     {: RESULT = new TExprTail(r, me); :} 
-                |                     {: RESULT = new TExprTail(); :} ;
 
-M_Expr ::= Term:t METail:tail     {: RESULT = new TMExpr(t, tail); :};
-
-METail ::= ADD M_Expr:e     {: RESULT = new TMETail(e); :} 
-          |                 {: RESULT = new TMETail(); :};
-
-Y ::= Identifier_t:id {: RESULT = id; :} 
-| CONST_INT:i         {: RESULT = new TIntLiteral(i); :};
-
-// ------------
+BoolExpr ::= M_Expr:l Rop:op M_Expr:r
+              {: RESULT = new TBoolExpr(op, l, r); :} 
+            | CONST_BOOL
+              {: RESULT = new TBoolExpr(true); :}  // TODO: true to something else
+              ;
               
 
 Rop         ::=   GREATER 
